@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { supabase } from "./supabaseClient";
@@ -11,9 +11,10 @@ const SigninSchema = Yup.object({
 
 function SignIn() {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleSignIn = async (values, { setSubmitting }) => {
     const { email, password } = values;
-
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -45,7 +46,6 @@ function SignIn() {
         >
           {({ isSubmitting }) => (
             <Form className="space-y-4">
-              {/* Email */}
               <div>
                 <Field
                   name="email"
@@ -60,13 +60,19 @@ function SignIn() {
                 />
               </div>
 
-              <div>
-                <Field
-                  name="password"
-                  type="password"
-                  placeholder="Password"
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter Password"
+                  className="w-full border p-2 rounded pr-10"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-2 mt-6 transform -translate-y-1/2 text-gray-500"
+                >
+                  {showPassword ? "🙈" : "👁"}
+                </button>
                 <ErrorMessage
                   name="password"
                   component="p"
@@ -75,9 +81,12 @@ function SignIn() {
               </div>
 
               <div className="flex justify-end">
-                <span className="text-sm text-blue-600 cursor-pointer hover:underline">
+                <button
+                  className="text-sm text-blue-600 cursor-pointer hover:underline"
+                  onClick={() => navigate("/forgot-password")}
+                >
                   Forgot password?
-                </span>
+                </button>
               </div>
 
               <button

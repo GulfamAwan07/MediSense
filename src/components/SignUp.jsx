@@ -4,7 +4,9 @@ import * as Yup from "yup";
 import { supabase } from "./supabaseClient";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 const SignupSchema = Yup.object({
+  name: Yup.string().min(3, "Name is too short").required("Name is Required"),
   email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string()
     .min(6, "Minimum 6 characters")
@@ -16,10 +18,12 @@ const SignupSchema = Yup.object({
 
 function SignUp() {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
   const handleSignUp = async (values, { setSubmitting, resetForm }) => {
-    const { email, password } = values;
+    const { name, email, password } = values;
 
     const { error } = await supabase.auth.signUp({
+      name,
       email,
       password,
     });
@@ -53,6 +57,19 @@ function SignUp() {
             <Form className="space-y-4">
               <div>
                 <Field
+                  name="name"
+                  type="text"
+                  placeholder="Enter Your Name"
+                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <ErrorMessage
+                  name="name"
+                  component="n"
+                  className="text-sm text-red-500 mt-1"
+                />
+              </div>
+              <div>
+                <Field
                   name="email"
                   type="email"
                   placeholder="Email address"
@@ -65,13 +82,19 @@ function SignUp() {
                 />
               </div>
 
-              <div>
-                <Field
-                  name="password"
-                  type="password"
-                  placeholder="Password"
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter Password"
+                  className="w-full border p-2 rounded pr-10"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-2 mt-6 transform -translate-y-1/2 text-gray-500"
+                >
+                  {showPassword ? "🙈" : "👁"}
+                </button>
                 <ErrorMessage
                   name="password"
                   component="p"
@@ -79,13 +102,21 @@ function SignUp() {
                 />
               </div>
 
-              <div>
+              <div className="relative">
                 <Field
                   name="confirmPassword"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Confirm password"
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
+
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-2 mt-6 transform -translate-y-1/2 text-gray-500"
+                >
+                  {showPassword ? "🙈" : "👁"}
+                </button>
                 <ErrorMessage
                   name="confirmPassword"
                   component="p"
