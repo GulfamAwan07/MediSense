@@ -39,11 +39,18 @@ function SignUp() {
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
         <div className="text-center mb-6">
           <h1 className="text-2xl font-bold text-gray-800">Create Account</h1>
-          <p className="text-sm text-gray-500 mt-1">Join MediSense to simplify ECG reports</p>
+          <p className="text-sm text-gray-500 mt-1">
+            Join MediSense to simplify ECG reports
+          </p>
         </div>
 
         <Formik
-          initialValues={{ name: "", email: "", password: "", confirmPassword: "" }}
+          initialValues={{
+            name: "",
+            email: "",
+            password: "",
+            confirmPassword: "",
+          }}
           validationSchema={SignupSchema}
           onSubmit={handleSignUp}
         >
@@ -56,7 +63,11 @@ function SignUp() {
                   placeholder="Enter Your Name"
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                <ErrorMessage name="name" component="p" className="text-sm text-red-500 mt-1" />
+                <ErrorMessage
+                  name="name"
+                  component="p"
+                  className="text-sm text-red-500 mt-1"
+                />
               </div>
 
               <div>
@@ -66,7 +77,11 @@ function SignUp() {
                   placeholder="Email address"
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                <ErrorMessage name="email" component="p" className="text-sm text-red-500 mt-1" />
+                <ErrorMessage
+                  name="email"
+                  component="p"
+                  className="text-sm text-red-500 mt-1"
+                />
               </div>
 
               <div className="relative">
@@ -83,7 +98,11 @@ function SignUp() {
                 >
                   {showPassword ? "🙈" : "👁"}
                 </button>
-                <ErrorMessage name="password" component="p" className="text-sm text-red-500 mt-1" />
+                <ErrorMessage
+                  name="password"
+                  component="p"
+                  className="text-sm text-red-500 mt-1"
+                />
               </div>
 
               <div className="relative">

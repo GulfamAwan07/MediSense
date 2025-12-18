@@ -14,10 +14,8 @@ function App() {
       <ToastContainer position="top-right" autoClose={3000} />
       <BrowserRouter>
         <Routes>
-          {/* Landing Page */}
           <Route path="/" element={<LandingPage />} />
 
-          {/* Auth Pages */}
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />

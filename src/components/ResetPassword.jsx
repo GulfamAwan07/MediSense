@@ -92,7 +92,6 @@ const ResetPassword = () => {
                 {isSubmitting ? "Updating..." : "Update Password"}
               </button>
 
-              {/* Back to login */}
               <p className="text-center text-sm text-gray-600 mt-4">
                 Go back to{" "}
                 <a
